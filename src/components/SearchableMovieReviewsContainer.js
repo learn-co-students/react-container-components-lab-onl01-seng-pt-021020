@@ -24,8 +24,13 @@ class SearchableMovieReviewsContainer extends Component {
         fetch(`${URL}&query=${this.state.searchTerm}`)
         .then(resp => resp.json())
         .then(data => {
+            let sortedData = data.results.sort(function(a,b){
+                if(a.display_title < b.display_title) {return -1;}
+                if(a.display_title > b.display_title) {return 1;}
+                return 0;
+            })
             this.setState({
-                reviews: data.results
+                reviews: sortedData
             })
         })
     }
