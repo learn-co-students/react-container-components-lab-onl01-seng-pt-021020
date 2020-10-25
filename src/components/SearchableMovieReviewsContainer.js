@@ -8,39 +8,48 @@ const URL = 'https://api.nytimes.com/svc/movies/v2/reviews/search.json?'
 
 
 export default class SearchableMovieReviewsContainer extends Component {
-    state = {
-        reviews: []
+    constructor() {
+        super()
+        this.state = {
+            reviews: [],
+            searchTerm: ''
+        }
     }
 
-    handleSubmit = searchTerm => {
-        console.log(searchTerm)
-//        fetch(URL + `?query=${searchTerm}`)
-//        .then(response => response.json())
-//        .then(movieData => {
-//            this.setState({
-//                reviews: Array.from(movieData.results)
-//            })
-//        })
+    changeSearchTerm = event => {
+        const searchTerm = event.target.value
+        this.setState({
+            searchTerm: searchTerm,
+        })
+    }
+
+    handleSubmit = event => {
+        event.preventDefault()
+
+        fetch(URL + `&query=${this.state.searchTerm}`)
+        .then(response => response.json())
+        .then(movieData => {
+            this.setState({
+                reviews: Array.from(movieData.results),
+            })
+        })
     }
 
     render() {
         return (
             <div className='searchable-movie-reviews'>
-                <form
-                    onSubmit={event => {
-                        event.preventDefault()
-                        this.handleSubmit(Object.keys(event))
-                    }}
-                >
+                <h1>Search for Reviews</h1>
+                <form onSubmit={this.handleSubmit}>
                     <input
                         type='text'
                         name='searchTerm'
+                        id='search-term'
+                        value={this.state.searchTerm}
+                        onChange={this.changeSearchTerm}
                     />
-                    <button type='submit'>
-                        Search
-                    </button>
-                    <MovieReviews reviews={this.state.reviews} />
+                    <button>Search</button>
                 </form>
+                <MovieReviews reviews={this.state.reviews} />
             </div>
         )
     }
