@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import './index.css'
 import LatestMovieReviewsContainer from './components/LatestMovieReviewsContainer';
 import SearchableMovieReviewsContainer from './components/SearchableMovieReviewsContainer';
 
