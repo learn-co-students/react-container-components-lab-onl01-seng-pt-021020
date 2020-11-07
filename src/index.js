@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import LatestMovieReviewsContainer from './components/LatestMovieReviewsContainer';
+import MovieReviews from './components/MovieReviews';
 import SearchableMovieReviewsContainer from './components/SearchableMovieReviewsContainer';
 
 ReactDOM.render(
